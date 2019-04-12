@@ -8,7 +8,7 @@ and for race classifier, `python3 race_predictor.py`
 
 1. Gender Classification
 * Model used: Logistic Regression with TFidfVectorization features.
-* Data not resampled
+* Data not resampled because oversampling caused worse overall performance
 * Average metrics: 
   - Precision : 0.92      
   - Recall : 0.91    
@@ -16,7 +16,7 @@ and for race classifier, `python3 race_predictor.py`
 
 2. Race Classification
 * Model used: Logistic Regression with TFidfVectorization features.
-* Data not resampled using RandomOversampling as Hispanic data too low.
+* Data resampled using RandomOversampling as Hispanic data too low.
 * Average metrics: 
   - Precision : 0.73    
   - Recall : 0.73    
