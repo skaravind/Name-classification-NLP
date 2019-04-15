@@ -6,7 +6,7 @@ from tqdm import tqdm
 import pickle
 from collections import Counter
 
-#from imblearn.over_sampling import SMOTE, RandomOverSampler
+from imblearn.over_sampling import SMOTE, RandomOverSampler
 
 # Importing the dataset
 dataset = pd.read_csv("data/names_combined.csv")
@@ -37,10 +37,10 @@ y = dataset.iloc[:, 1].values
 
 print('vectorized')
 
-ros = RandomOverSampler(random_state=42)
-X, y = ros.fit_resample(X, y)
+# ros = RandomOverSampler(random_state=42)
+# X, y = ros.fit_resample(X, y)
 
-print('random oversampled. Now fitting classifier')
+# print('random oversampled. Now fitting classifier')
 
 filename = 'corpus.sav'
 pickle.dump(cv, open(filename, 'wb'))
@@ -64,6 +64,7 @@ y_pred = classifier.predict(X_test)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix, classification_report
 cm = confusion_matrix(y_test, y_pred)
+print(cm)
 
 TP = cm[1][1]
 FP = cm[0][1]

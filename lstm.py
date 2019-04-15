@@ -4,15 +4,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from tqdm import tqdm
 import pickle
+from collections import Counter
 
-
-from imblearn.over_sampling import SMOTE, RandomOverSampler
+#from imblearn.over_sampling import SMOTE, RandomOverSampler
 
 # Importing the dataset
 dataset = pd.read_csv("data/names_combined.csv")
 
 dataset.dropna(inplace=True)
-dataset.replace('b','black',inplace=True)
 
 # Cleaning the texts
 import re
@@ -34,7 +33,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 #cv = CountVectorizer(max_features = 1200)
 cv = TfidfVectorizer(max_features = 1200, ngram_range=(1, 2))
 X = cv.fit_transform(corpus).toarray()
-y = dataset.iloc[:, 2].values
+y = dataset.iloc[:, 1].values
 
 print('vectorized')
 
@@ -66,10 +65,18 @@ y_pred = classifier.predict(X_test)
 from sklearn.metrics import confusion_matrix, classification_report
 cm = confusion_matrix(y_test, y_pred)
 
-print(cm)
+TP = cm[1][1]
+FP = cm[0][1]
+TN = cm[0][0]
+FN = cm[1][0]
+TP, FP, TN, FN = float(TP), float(FP),float(TN),float(FN)
+Accuracy = (TP + TN)/(TP + TN + FP + FN)
+Precision = TP / (TP + FP)
+Recall = TP / (TP + FN)
+F1_score = 2 * Precision * Recall / (Precision + Recall)
 
+print('Accuracy, Precision, Recall and F1 score respectively: ' + str(Accuracy) + ', ' + str(Precision) + ', ' + str(Recall) + ', ' + str(F1_score))
 print(classification_report(y_test, y_pred,target_names=classifier.classes_))
-
 # save the model to disk
-filename = 'race_model.sav'
+filename = 'gender_model2.sav'
 pickle.dump(classifier, open(filename, 'wb'))
