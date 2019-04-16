@@ -28,8 +28,8 @@ and for race classifier, `python3 race_predictor.py`
 
 I have trained a character-level as well as bigrams and trigrams embedding using gensim Word2vec and applied ANN based classification on the embeddings. All the code is in the IPython notebook `name_classifcation.ipynb`
 
-1. Gender Classification - Test Acuracy (97.6%)
+1. Gender Classification - Val Acuracy (97.6%)
 
-2. Race Classification - Test Accuracy (86%)
+2. Race Classification - Val Accuracy (86%)
 
 I am working on finding a better approach for solving problem 2.
