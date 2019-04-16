@@ -18,6 +18,7 @@ import re
 import nltk
 corpus = []
 
+
 for i in tqdm(range(len(dataset['name']))):
     try:
         review = re.sub('[^a-zA-Z]', ' ', dataset['name'].values[i])
@@ -31,7 +32,7 @@ for i in tqdm(range(len(dataset['name']))):
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 #cv = CountVectorizer(max_features = 1200)
-cv = TfidfVectorizer(max_features = 1200, ngram_range=(1, 2))
+cv = TfidfVectorizer(max_features = 1200, ngram_range=(1, 3))
 X = cv.fit_transform(corpus).toarray()
 y = dataset.iloc[:, 1].values
 
@@ -54,9 +55,22 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, rand
 # from sklearn.ensemble import RandomForestClassifier
 # classifier = RandomForestClassifier(n_estimators=10, criterion='entropy', random_state=0, verbose=2, n_jobs=-1)
 # classifier.fit(X_train, y_train)
-from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression(random_state = 0)
-classifier.fit(X_train, y_train)
+# from sklearn.linear_model import LogisticRegression
+# classifier = LogisticRegression(random_state = 0)
+# classifier.fit(X_train, y_train)
+
+import lightgbm as lgb
+d_train = lgb.Dataset(X_train, label=y_train)
+params = {}
+params['learning_rate'] = 0.003
+params['boosting_type'] = 'gbdt'
+params['objective'] = 'binary'
+params['metric'] = 'binary_logloss'
+params['sub_feature'] = 0.5
+params['num_leaves'] = 10
+params['min_data'] = 50
+params['max_depth'] = 10
+classifier = lgb.train(params, d_train, 100)
 
 # Calculating y_pred
 y_pred = classifier.predict(X_test)

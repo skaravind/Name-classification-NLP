@@ -1,10 +1,12 @@
 # Name-classification-NLP
 
+## Attempt One
+
 To run the gender classifier (supports Python 3), `python3 gender_predictor.py`
 
 and for race classifier, `python3 race_predictor.py`
 
-## Model Reports
+### Model Reports
 
 1. Gender Classification
 * Model used: Logistic Regression with TFidfVectorization features.
@@ -21,3 +23,13 @@ and for race classifier, `python3 race_predictor.py`
   - Precision : 0.73    
   - Recall : 0.73    
   - F1 score : 0.73
+
+## Attempt Two
+
+I have trained a character-level as well as bigrams and trigrams embedding using gensim Word2vec and applied ANN based classification the features. All the code is in the IPython notebook `name_classifcation.ipynb`
+
+1. Gender Classification - Test Acuracy (97.6%)
+
+2. Race Classification - Test Accuracy (86%)
+
+I am working on finding a better approach for solving problem 2.

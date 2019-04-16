@@ -32,7 +32,7 @@ for i in tqdm(range(len(dataset['name']))):
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 #cv = CountVectorizer(max_features = 1200)
-cv = TfidfVectorizer(max_features = 1200, ngram_range=(1, 2))
+cv = TfidfVectorizer(max_features = 1000, ngram_range=(1, 3))
 X = cv.fit_transform(corpus).toarray()
 y = dataset.iloc[:, 2].values
 
@@ -40,7 +40,6 @@ print('vectorized')
 
 ros = RandomOverSampler(random_state=42)
 X, y = ros.fit_resample(X, y)
-
 print('random oversampled. Now fitting classifier')
 
 filename = 'corpus.sav'
@@ -56,8 +55,11 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, rand
 # classifier = RandomForestClassifier(n_estimators=10, criterion='entropy', random_state=0, verbose=2, n_jobs=-1)
 # classifier.fit(X_train, y_train)
 from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression(random_state = 0)
+classifier = LogisticRegression(max_iter=200, random_state = 0, solver='lbfgs', multi_class='multinomial', verbose=2, n_jobs=3, class_weight={'indian':1,'black':1.5,'hispanic':1.5,'white':2})
 classifier.fit(X_train, y_train)
+# from sklearn.naive_bayes import MultinomialNB
+# classifier = MultinomialNB()
+# classifier.fit(X_train, y_train)
 
 # Calculating y_pred
 y_pred = classifier.predict(X_test)
