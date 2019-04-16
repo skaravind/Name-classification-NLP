@@ -26,7 +26,7 @@ and for race classifier, `python3 race_predictor.py`
 
 ## Attempt Two
 
-I have trained a character-level as well as bigrams and trigrams embedding using gensim Word2vec and applied ANN based classification the features. All the code is in the IPython notebook `name_classifcation.ipynb`
+I have trained a character-level as well as bigrams and trigrams embedding using gensim Word2vec and applied ANN based classification on the embeddings. All the code is in the IPython notebook `name_classifcation.ipynb`
 
 1. Gender Classification - Test Acuracy (97.6%)
 
