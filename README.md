@@ -30,6 +30,6 @@ I have trained a character-level as well as bigrams and trigrams embedding using
 
 1. Gender Classification - Val Acuracy (97.6%)
 
-2. Race Classification - Val Accuracy (86%)
+2. Race Classification - Val Accuracy (88%)
 
 I am working on finding a better approach for solving problem 2.
